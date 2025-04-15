@@ -12,6 +12,7 @@ export const Theme = {
     inputBackground: '#27272A',
     placeholder: '#71717A',
     placeholderBackground: '#282b56',
+    buttonGradient: ['#2938DC', '#943DFF'],
   },
   sizes: {
     width: width,

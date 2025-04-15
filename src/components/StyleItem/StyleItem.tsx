@@ -40,6 +40,7 @@ const StyleItem = ({ item, isSelected = false, onPress }: StyleItemProps) => {
       ) }
       <CustomText
         variant={isSelected ? 'Bold' : 'Regular'}
+        style={!isSelected && { color: Theme.colors.placeholder }}
         size={13}>
         { item.name }
       </CustomText>
