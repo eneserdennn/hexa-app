@@ -2,7 +2,7 @@ export default {
   Home: {
     PromptTitle: 'Enter Your Prompt',
     PromptPlaceholder: 'A blue lion logo reading ‘HEXA’ in bold letters',
-    SupriseMe: 'Surprise Me',
+    SurpriseMe: 'Surprise Me',
     LogoStyles: 'Logo Styles',
     NoStyle: 'No Style',
     CreateButton: 'Create',
