@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
@@ -21,10 +26,12 @@ const InfoChip = ({ status }: InfoChipProps) => {
     switch (status) {
     case 'loading':
       return (
-        <LoadingIndicator
-          size='small'
-          color={Theme.colors.white}
-        />
+        <View style={[styles.imageContainer, { backgroundColor: Theme.colors.infoChipBackground }]}>
+          <LoadingIndicator
+            size='small'
+            color={Theme.colors.white}
+          />
+        </View>
       );
     case 'error':
       return (
@@ -141,11 +148,14 @@ const InfoChip = ({ status }: InfoChipProps) => {
       <View style={styles.leftContainer}>
         { renderLeftContent() }
       </View>
-      <View style={styles.rightContainer}>
+      <TouchableOpacity
+        style={styles.rightContainer}
+        disabled={status !== 'error'}
+        onPress={() => {}}>
         <View style={styles.textContainer}>
           { renderRightContent() }
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

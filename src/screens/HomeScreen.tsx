@@ -33,7 +33,7 @@ const HomeScreen = () => {
       >
         <View style={styles.promptContainer}>
           <View style={styles.infoChipContainer}>
-            <InfoChip status='success' />
+            <InfoChip status='loading' />
           </View>
           <View style={styles.inputContainer}>
             <View style={styles.inputHeader}>
