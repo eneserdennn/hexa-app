@@ -11,6 +11,7 @@ export const Theme = {
     tertiaryColor: '#386BFF',
     inputBackground: '#27272A',
     placeholder: '#71717A',
+    placeholderBackground: '#282b56',
   },
   sizes: {
     width: width,

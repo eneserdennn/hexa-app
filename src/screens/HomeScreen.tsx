@@ -1,31 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   StyleSheet,
   TextInput,
   View,
 } from 'react-native';
-import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 
-import { CustomText } from '@/components';
-import { images, Theme } from '@/constants';
+import { BackgroundImage, CustomText, StyleItem } from '@/components';
+import { mockStyles, Theme } from '@/constants';
 
 const HomeScreen = () => {
   const { t } = useTranslation();
   const maxLength = 500;
-  const [text, setText] = React.useState('');
+  const [text, setText] = useState('');
+  const [selectedStyle, setSelectedStyle] = useState<number | null>(null);
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={images.backGradient}
-          contentFit='fill'
-          transition={1000}
-        />
-      </View>
+      <BackgroundImage />
       <View style={styles.content}>
         <View style={styles.inputContainer}>
           <View style={styles.inputHeader}>
@@ -34,6 +27,8 @@ const HomeScreen = () => {
               size={20}>
               { t('Home.PromptTitle') }
             </CustomText>
+
+            { /* TODO: Change to button */ }
             <CustomText
               variant='Regular'
               size={14}>
@@ -66,18 +61,27 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.logoStyles}>
-          <CustomText
-            variant='ExtraBold'
-            size={20}>
-            { t('Home.LogoStyles') }
-          </CustomText>
+          <View style={styles.logoStylesHeader}>
+            <CustomText
+              variant='ExtraBold'
+              size={20}>
+              { t('Home.LogoStyles') }
+            </CustomText>
+          </View>
 
-          { /* TODO: Add logo styles */ }
           <FlatList
-            data={[]}
-            renderItem={() => <View />}
+            data={mockStyles}
+            renderItem={({ item }) => (
+              <StyleItem
+                item={item}
+                isSelected={selectedStyle === item.id}
+                onPress={() => setSelectedStyle(item.id)}
+              />
+            )}
+            keyExtractor={(item) => item.id.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.logoStylesContainer}
           />
         </View>
       </View>
@@ -92,22 +96,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Theme.colors.background,
   },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  imageContainer: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
   content: {
     flex: 1,
-    paddingHorizontal: 24,
     gap: 24,
   },
   inputContainer: {
     gap: 12,
+    paddingHorizontal: 24,
   },
   inputHeader: {
     flexDirection: 'row',
@@ -135,7 +130,13 @@ const styles = StyleSheet.create({
     color: Theme.colors.placeholder,
   },
   logoStyles: {
-    flex: 1,
     gap: 12,
+  },
+  logoStylesHeader: {
+    paddingHorizontal: 24,
+  },
+  logoStylesContainer: {
+    gap: 12,
+    marginLeft: 24,
   },
 });
