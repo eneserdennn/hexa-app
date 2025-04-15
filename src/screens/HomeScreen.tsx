@@ -13,6 +13,7 @@ import {
   BackgroundImage,
   CustomButton,
   CustomText,
+  InfoChip,
   StyleItem,
 } from '@/components';
 import { mockStyles, Theme } from '@/constants';
@@ -31,6 +32,9 @@ const HomeScreen = () => {
         style={styles.content}
       >
         <View style={styles.promptContainer}>
+          <View style={styles.infoChipContainer}>
+            <InfoChip status='success' />
+          </View>
           <View style={styles.inputContainer}>
             <View style={styles.inputHeader}>
               <CustomText
@@ -125,6 +129,9 @@ const styles = StyleSheet.create({
   },
   promptContainer: {
     gap: 24,
+  },
+  infoChipContainer: {
+    paddingHorizontal: 24,
   },
   inputContainer: {
     gap: 12,

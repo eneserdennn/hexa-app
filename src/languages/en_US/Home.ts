@@ -7,6 +7,7 @@ export default {
     NoStyle: 'No Style',
     CreateButton: 'Create',
     Creating: 'Creating Your Design...',
+    CreatingDescription: 'This may take a few seconds.',
     ReadyIn: 'Ready in',
     Minutes: 'Minutes',
     LogoCreated: 'Your Design is Ready!',

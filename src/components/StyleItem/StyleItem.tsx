@@ -8,8 +8,9 @@ import {
 import { Image } from 'expo-image';
 
 import { EmptyIcon } from '@/assets';
-import { CustomText } from '@/components';
 import { Theme } from '@/constants';
+
+import { CustomText } from '../CustomText';
 
 type StyleItemProps = {
   item: {

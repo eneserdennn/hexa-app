@@ -13,6 +13,10 @@ export const Theme = {
     placeholder: '#71717A',
     placeholderBackground: '#282b56',
     buttonGradient: ['#2938DC', '#943DFF'],
+    infoChipBackground: '#18181B',
+    errorLight: '#f37c7c',
+    error: '#EF4444',
+    placeholderLight: '#D4D4D8',
   },
   sizes: {
     width: width,

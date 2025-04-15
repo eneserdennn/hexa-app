@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { CustomText } from '@/components';
 import { Theme } from '@/constants';
+
+import { CustomText } from '../CustomText';
 
 type CustomHeaderProps = {
   title: string;
