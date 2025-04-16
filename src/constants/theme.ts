@@ -17,6 +17,7 @@ export const Theme = {
     errorLight: '#f37c7c',
     error: '#EF4444',
     placeholderLight: '#D4D4D8',
+    infoChip: '#3e3d48',
   },
   sizes: {
     width: width,

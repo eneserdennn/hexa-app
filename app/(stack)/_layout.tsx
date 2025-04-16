@@ -9,6 +9,18 @@ export default function StackLayout() {
       <Stack.Screen
         name='home'
         options={{ header: () => <CustomHeader title='AI Logo' /> }} />
+      <Stack.Screen
+        name='result'
+        options={{
+          header: () => (
+            <CustomHeader
+              title='Your Design'
+              size='large'
+              closeButton
+            />
+          ),
+        }}
+      />
     </Stack>
   );
 };

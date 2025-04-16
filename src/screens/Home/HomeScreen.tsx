@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -24,9 +25,8 @@ import { MAX_PROMPT_LENGTH } from './constants';
 import { getInfoChipStatus } from './helpers';
 
 const HomeScreen = () => {
+  const router = useRouter();
   const { t } = useTranslation();
-  const [text, setText] = useState('');
-  const [selectedStyle, setSelectedStyle] = useState<number | null>(0);
 
   const {
     logoStatus,
@@ -35,26 +35,35 @@ const HomeScreen = () => {
     error,
     createLogo,
     requestId,
+    prompt,
+    selectedStyle,
+    setPrompt,
+    setSelectedStyle,
   } = useLogoStore();
 
   const handleCreateLogo = () => {
     const createLogoPayload = (
-      text: string,
+      prompt: string,
       selectedStyle: number | null,
     ): Logo => {
       return {
-        prompt: text,
+        prompt: prompt,
         style: selectedStyle || 0,
       };
     };
 
-    createLogo(createLogoPayload(text, selectedStyle));
+    createLogo(createLogoPayload(prompt || '', selectedStyle));
   };
 
   return (
     <Layout>
       <View style={styles.container}>
         <BackgroundImage />
+        <TouchableOpacity
+          onPress={() => router.push('/result')}
+        >
+          <CustomText>asfasf</CustomText>
+        </TouchableOpacity>
         <SafeAreaView
           edges={['bottom']}
           style={styles.content}
@@ -93,15 +102,15 @@ const HomeScreen = () => {
                   placeholderTextColor={Theme.colors.placeholder}
                   placeholder={t('Home.PromptPlaceholder')}
                   maxLength={MAX_PROMPT_LENGTH}
-                  value={text}
-                  onChangeText={setText}
+                  value={prompt || ''}
+                  onChangeText={setPrompt}
                 />
                 <View style={styles.characterCounter}>
                   <CustomText
                     variant='Regular'
                     size={11}
                     style={styles.counterText}>
-                    { text.length }
+                    { prompt?.length || 0 }
                     /
                     { MAX_PROMPT_LENGTH }
                   </CustomText>
@@ -139,7 +148,7 @@ const HomeScreen = () => {
             <CustomButton
               text='Create'
               onPress={handleCreateLogo}
-              disabled={text.length === 0 || selectedStyle === null}
+              disabled={!prompt || prompt.length === 0 || selectedStyle === null}
               isLoading={logoStatus?.status === LogoStatusType.Processing}
             />
           </View>

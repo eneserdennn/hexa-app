@@ -14,9 +14,13 @@ interface LogoState {
   isChecking: boolean;
   error: string | null;
   resultImageUrl: string | null;
+  selectedStyle: number | null;
+  prompt: string | null;
 
   createLogo: (logo: Logo) => Promise<void>;
   checkLogoStatus: () => Promise<void>;
+  setSelectedStyle: (style: number) => void;
+  setPrompt: (prompt: string) => void;
 }
 
 const useLogoStore = create<LogoState>((set, get) => ({
@@ -26,6 +30,12 @@ const useLogoStore = create<LogoState>((set, get) => ({
   isChecking: false,
   error: null,
   resultImageUrl: null,
+  selectedStyle: 0,
+  prompt: null,
+
+  setSelectedStyle: (style: number) => set({ selectedStyle: style }),
+  setPrompt: (prompt: string) => set({ prompt }),
+
   createLogo: async (logo: Logo) => {
     try {
       set({ isCreating: true, error: null });
@@ -67,6 +77,7 @@ const useLogoStore = create<LogoState>((set, get) => ({
     } finally {
       set({ isChecking: false });
     }
+
   },
 }));
 

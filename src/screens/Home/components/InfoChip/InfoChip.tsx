@@ -7,17 +7,20 @@ import {
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { AlertIcon } from '@/assets';
 import { CustomText, LoadingIndicator } from '@/components';
 import { Theme } from '@/constants';
 import { useLogoStore } from '@/store';
+
 type InfoChipProps = {
   status: 'loading' | 'success' | 'error';
 };
 
 const InfoChip = ({ status }: InfoChipProps) => {
+  const router = useRouter();
   const { t } = useTranslation();
   const { resultImageUrl } = useLogoStore();
 
@@ -92,7 +95,9 @@ const InfoChip = ({ status }: InfoChipProps) => {
       );
     case 'success':
       return (
-        <>
+        <TouchableOpacity
+          onPress={() => router.push('/result')}
+        >
           <CustomText
             variant='ExtraBold'
             size={16}>
@@ -105,7 +110,7 @@ const InfoChip = ({ status }: InfoChipProps) => {
           >
             { t('Home.TapToSee') }
           </CustomText>
-        </>
+        </TouchableOpacity>
       );
     default:
       return null;
