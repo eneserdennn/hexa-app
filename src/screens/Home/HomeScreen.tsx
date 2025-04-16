@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -25,7 +24,6 @@ import { MAX_PROMPT_LENGTH } from './constants';
 import { getInfoChipStatus } from './helpers';
 
 const HomeScreen = () => {
-  const router = useRouter();
   const { t } = useTranslation();
 
   const {
@@ -55,15 +53,16 @@ const HomeScreen = () => {
     createLogo(createLogoPayload(prompt || '', selectedStyle));
   };
 
+  const handleSurpriseMe = () => {
+    setPrompt('Surprise me');
+    setSelectedStyle(mockStyles[Math.floor(Math.random() * mockStyles.length)].id);
+    handleCreateLogo();
+  };
+
   return (
     <Layout>
       <View style={styles.container}>
         <BackgroundImage />
-        <TouchableOpacity
-          onPress={() => router.push('/result')}
-        >
-          <CustomText>asfasf</CustomText>
-        </TouchableOpacity>
         <SafeAreaView
           edges={['bottom']}
           style={styles.content}
@@ -84,8 +83,7 @@ const HomeScreen = () => {
                 </CustomText>
 
                 <TouchableOpacity
-                // TODO: Add action
-                  onPress={() => {}}>
+                  onPress={handleSurpriseMe}>
                   <CustomText
                     variant='Regular'
                     size={14}>
