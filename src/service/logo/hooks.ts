@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { QUERY_KEYS } from '@/constants';
+
 import { LogoService } from './service';
 
 export const useCreateLogo = () => {
@@ -7,7 +9,7 @@ export const useCreateLogo = () => {
   return useMutation({
     mutationFn: LogoService.createLogo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['logo'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.LOGO] });
     },
     onError: (error) => {
       console.error(error);
@@ -17,7 +19,7 @@ export const useCreateLogo = () => {
 
 export const useGetLogoStatus = (requestId: string) => {
   return useQuery({
-    queryKey: ['logo', requestId],
+    queryKey: [QUERY_KEYS.LOGO, requestId],
     queryFn: () => LogoService.getLogoStatus(requestId),
   });
 };
