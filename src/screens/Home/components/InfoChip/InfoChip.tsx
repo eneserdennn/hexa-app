@@ -10,17 +10,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
 
 import { AlertIcon } from '@/assets';
-import { mockStyles, Theme } from '@/constants';
-
-import { CustomText } from '../CustomText';
-import { LoadingIndicator } from '../Loading';
-
+import { CustomText, LoadingIndicator } from '@/components';
+import { Theme } from '@/constants';
+import { useLogoStore } from '@/store';
 type InfoChipProps = {
   status: 'loading' | 'success' | 'error';
 };
 
 const InfoChip = ({ status }: InfoChipProps) => {
   const { t } = useTranslation();
+  const { resultImageUrl } = useLogoStore();
 
   const renderLeftContent = () => {
     switch (status) {
@@ -43,9 +42,10 @@ const InfoChip = ({ status }: InfoChipProps) => {
       return (
         <View style={styles.imageContainer}>
           <Image
-            source={mockStyles[1].image}
+            source={{ uri: resultImageUrl }}
             style={styles.image}
             contentFit='fill'
+            placeholder={require('@/assets/images/placeholder.png')}
           />
         </View>
       );
@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
   },
   textContainer: {
     gap: 2,

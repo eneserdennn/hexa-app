@@ -6,30 +6,42 @@ import { StarsIcon } from '@/assets';
 import { Theme } from '@/constants';
 
 import CustomText from '../CustomText/CustomText';
+import { LoadingIndicator } from '../Loading';
 
-type CustomButtonProps = {
+export type CustomButtonProps = {
   text: string;
   onPress: () => void;
+  isLoading?: boolean;
+  disabled?: boolean;
 };
 
-const CustomButton = ({ text, onPress }: CustomButtonProps) => {
+const CustomButton = ({ text, onPress, isLoading = false, disabled = false }: CustomButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={styles.button}>
+      disabled={isLoading || disabled}
+      style={[styles.button, (isLoading || disabled) && styles.buttonLoading]}>
       <LinearGradient
         colors={Theme.colors.buttonGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 0.8, y: 0 }}
         style={styles.gradient}
       >
-        <CustomText
-          variant='Bold'
-          size={17}
-        >
-          { text }
-        </CustomText>
-        <StarsIcon />
+        { isLoading ? (
+          <LoadingIndicator
+            color={Theme.colors.text}
+            size='small' />
+        ) : (
+          <>
+            <CustomText
+              variant='Bold'
+              size={17}
+            >
+              { text }
+            </CustomText>
+            <StarsIcon />
+          </>
+        ) }
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -42,6 +54,10 @@ const styles = StyleSheet.create({
     height: 56,
     width: '100%',
     borderRadius: 50,
+    opacity: 1,
+  },
+  buttonLoading: {
+    opacity: 0.5,
   },
   gradient: {
     height: '100%',
